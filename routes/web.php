@@ -16,3 +16,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
+
+Route::resource('attendee', App\Http\Controllers\AttendeeController::class)->only('show', 'edit', 'update');
+
+Route::resource('event', App\Http\Controllers\EventController::class);
+
+Route::resource('photo', App\Http\Controllers\PhotoController::class);
+
+Route::resource('user', App\Http\Controllers\UserController::class);
